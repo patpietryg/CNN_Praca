@@ -1,0 +1,44 @@
+ClassId,Name
+0,Ograniczenie prêdkoœci (20km/h)
+1,Ograniczenie prêdkoœci (30km/h)
+2,Ograniczenie prêdkoœci (50km/h)
+3,Ograniczenie prêdkoœci (60km/h)
+4,Ograniczenie prêdkoœci (70km/h)
+5,Ograniczenie prêdkoœci (80km/h)
+6,Koniec ograniczenia prêdkoœci (80km/h)
+7,Ograniczenie prêdkoœci (100km/h)
+8,Ograniczenie prêdkoœci (120km/h)
+9,Zakaz wyprzedzania
+10,Zakaz wyprzedzania dla pojazdów powy¿ej 3.5 ton
+11,Pierwszeñstwo przejazdu na nastêpnym skrzy¿owaniu
+12,Droga o pierwszeñstwie przejazdu
+13,Ust¹p pierwszeñstwa
+14,Stop
+15,Brak pojazdów
+16,Zakaz wjazdu pojazdów o masie powy¿ej 3.5 tony
+17,Zakaz wjazdu
+18,Ogólna ostro¿noœæ
+19,Niebezpieczny zakrêt w lewo
+20,Niebezpieczny zakrêt w prawo
+21,Podwójny zakrêt
+22,Nierówna droga
+23,Œliska droga
+24,Droga zwê¿a siê po prawej stronie
+25,Roboty drogowe
+26,Sygnalizacja œwietlna
+27,Piesi
+28,Przejœcie dla dzieci
+29,Przejœcie dla rowerzystów
+30,Uwaga na lód/œnieg
+31,Przejœcie dzikich zwierz¹t
+32,Koniec wszystkich ograniczeñ prêdkoœci i zakazów wyprzedzania
+33,Skrêæ w prawo
+34,Skrêæ w lewo
+35,Tylko prosto
+36,Prosto albo w prawo
+37,Prosto albo w lewo
+38,JedŸ prawo
+39,JedŸ lewo
+40,Rondo obowi¹zkowe
+41,Koniec zakazu wyprzedzania
+42,Koniec zakazu wyprzedzania dla pojazdów o masie powy¿ej 3.5 tony
