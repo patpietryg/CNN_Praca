@@ -6,7 +6,7 @@ import cv2
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
-from keras.layers import Dropout, Flatten
+from keras.layers import Dropout, Flatten, BatchNormalization, Activation
 from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.utils import to_categorical
@@ -109,22 +109,35 @@ def myModel():
     size_of_pool = (2, 2)
     no_Of_Nodes = 500
     model = Sequential()
-    model.add((Conv2D(no_Of_Filters, size_of_Filter, input_shape=(imageDimesions[0], imageDimesions[1], 1),
-                      activation='relu')))
-    model.add((Conv2D(no_Of_Filters, size_of_Filter, activation='relu')))
+
+    model.add(Conv2D(no_Of_Filters, size_of_Filter, input_shape=(imageDimesions[0], imageDimesions[1], 1)))
+    model.add(BatchNormalization())  # Dodajemy warstwę Batch Normalization
+    model.add(Activation("relu"))  # Dodajemy aktywację ReLU
+
+    model.add(Conv2D(no_Of_Filters, size_of_Filter))
+    model.add(BatchNormalization())  # Dodajemy warstwę Batch Normalization
+    model.add(Activation("relu"))  # Dodajemy aktywację ReLU
     model.add(MaxPooling2D(pool_size=size_of_pool))
 
-    model.add((Conv2D(no_Of_Filters // 2, size_of_Filter2, activation='relu')))
-    model.add((Conv2D(no_Of_Filters // 2, size_of_Filter2, activation='relu')))
+    model.add(Conv2D(no_Of_Filters // 2, size_of_Filter2))
+    model.add(BatchNormalization())  # Dodajemy warstwę Batch Normalization
+    model.add(Activation("relu"))  # Dodajemy aktywację ReLU
+
+    model.add(Conv2D(no_Of_Filters // 2, size_of_Filter2))
+    model.add(BatchNormalization())  # Dodajemy warstwę Batch Normalization
+    model.add(Activation("relu"))  # Dodajemy aktywację ReLU
     model.add(MaxPooling2D(pool_size=size_of_pool))
+
     model.add(Dropout(0.5))
-
     model.add(Flatten())
-    model.add(Dense(no_Of_Nodes, activation='relu'))
+    model.add(Dense(no_Of_Nodes))
+    model.add(BatchNormalization())  # Dodajemy warstwę Batch Normalization
+    model.add(Activation("relu"))  # Dodajemy aktywację ReLU
     model.add(Dropout(0.5))
-    model.add(Dense(noOfClasses, activation='softmax'))
 
+    model.add(Dense(noOfClasses, activation='softmax'))
     model.compile(Adam(lr=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+
     return model
 
 # Trening
