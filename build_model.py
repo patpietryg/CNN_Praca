@@ -103,8 +103,8 @@ y_test = to_categorical(y_test, noOfClasses)
 
 # Budowanie sieci CNN
 def myModel():
-    no_Of_Filters = 60
-    size_of_Filter = (5, 5)
+    no_Of_Filters = 64
+    size_of_Filter = (3, 3)
     size_of_Filter2 = (3, 3)
     size_of_pool = (2, 2)
     no_Of_Nodes = 500

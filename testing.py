@@ -124,6 +124,13 @@ def getClassName(classNo):
         return 'Koniec zakazu wyprzedzania dla pojazdów o masie powyżej 3.5 tony'
 
 
+# Lista przechowująca pięć klatek
+frames_buffer = []
+
+# Dane ostatniej klasyfikacji
+last_class_index = None
+last_probability_value = None
+
 while True:
     # wczytanie obrazu
     success, imgOrignal = cap.read()
@@ -135,18 +142,39 @@ while True:
     img = img.reshape(1, 32, 32, 1)
     cv2.putText(imgOrignal, "CLASS: ", (20, 35), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
     cv2.putText(imgOrignal, "PROBABILITY: ", (20, 75), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-    # zgadywanie
-    predictions = model.predict(img)
-    classIndex = np.argmax(predictions)  # Pobranie indeksu klasy o najwyższym prawdopodobieństwie
-    probabilityValue = predictions[0, classIndex]  # Pobranie prawdopodobieństwa dla wybranej klasy
 
-    if probabilityValue > threshold:
-        class_name = getClassName(classIndex)
-        cv2.putText(imgOrignal, str(classIndex) + " " + class_name, (120, 35), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-        cv2.putText(imgOrignal, str(round(probabilityValue * 100, 2)) + "%", (180, 75), font, 0.75, (0, 0, 255), 2,
-                    cv2.LINE_AA)
+    # Dodawanie kolejnych klatek do bufora
+    frames_buffer.append(img)
+
+    # Sprawdzenie, czy mamy już pięć klatek w buforze
+    if len(frames_buffer) == 5:
+        # Obliczenie średniej klatki
+        averaged_frame = np.mean(frames_buffer, axis=0)
+
+        # Wykonanie klasyfikacji
+        predictions = model.predict(averaged_frame)
+        classIndex = np.argmax(predictions)
+        probabilityValue = predictions[0, classIndex]
+
+        # Przypisanie danych ostatniej klasyfikacji
+        last_class_index = classIndex
+        last_probability_value = probabilityValue
+
+        # Wyczyszczenie bufora
+        frames_buffer = []
+
+    # Wyświetlanie danych ostatniej klasyfikacji
+    if last_class_index is not None and last_probability_value is not None:
+        if last_probability_value > threshold:
+            class_name = getClassName(last_class_index)
+            cv2.putText(imgOrignal, str(last_class_index) + " " + class_name, (120, 35), font, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(imgOrignal, str(round(last_probability_value * 100, 2)) + "%", (180, 75), font, 0.75, (0, 0, 255), 2,
+                        cv2.LINE_AA)
 
     cv2.imshow("Result", imgOrignal)
 
-    if cv2.waitKey(1) and 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+cap.release()
+cv2.destroyAllWindows()
