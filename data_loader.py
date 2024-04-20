@@ -24,8 +24,11 @@ def load_data(path, testRatio, validationRatio):
     images = np.array(images)
     classNo = np.array(classNo)
 
-    # Podzielenie danych
-    X_train, X_test, y_train, y_test = train_test_split(images, classNo, test_size=testRatio)
-    X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=validationRatio)
 
-    return X_train, X_validation, X_test, y_train, y_validation, y_test, noOfClasses
+    # Podzielenie danych
+    # X_train, X_test, y_train, y_test = train_test_split(images, classNo, test_size=testRatio)
+    # X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=validationRatio)
+    #
+    # return X_train, X_validation, X_test, y_train, y_validation, y_test, noOfClasses
+
+    return  images, classNo, noOfClasses
