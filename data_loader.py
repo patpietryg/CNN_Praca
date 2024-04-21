@@ -1,7 +1,6 @@
 import os
 import cv2
 import numpy as np
-from sklearn.model_selection import train_test_split
 
 def load_data(path, testRatio, validationRatio):
     # Pobieranie danych, zdjęć z folderu
@@ -23,12 +22,5 @@ def load_data(path, testRatio, validationRatio):
     print(" ")
     images = np.array(images)
     classNo = np.array(classNo)
-
-
-    # Podzielenie danych
-    # X_train, X_test, y_train, y_test = train_test_split(images, classNo, test_size=testRatio)
-    # X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=validationRatio)
-    #
-    # return X_train, X_validation, X_test, y_train, y_validation, y_test, noOfClasses
 
     return  images, classNo, noOfClasses
